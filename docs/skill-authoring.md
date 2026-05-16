@@ -20,8 +20,8 @@ Use this checklist when adding or revising skills in this repo.
 
 ## Resource Rules
 
-- Use `scripts/` for fragile or repetitive operations where deterministic behavior matters.
-- Use `references/` for policies, schemas, examples, API notes, and detailed domain knowledge.
+- Use `scripts/` for exectution code.
+- Use `references/` for documentation
 - Use `assets/` for output templates, images, document boilerplate, or other files the agent should reuse.
 - Avoid duplicating the same guidance in both `SKILL.md` and `references/`.
 
