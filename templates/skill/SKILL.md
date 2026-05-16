@@ -1,28 +1,55 @@
 ---
 name: skill-template
-description: Replace with a concise trigger description. Include what the skill does, when Codex should use it, and important boundaries.
+description: Replace with a concise trigger description. Include what the skill does, when Codex should use it, expected inputs, and important boundaries.
 ---
 
 # Skill Template
 
-State the workflow Codex should follow. Use direct instructions and include only the context another Codex session needs to perform the task well.
+Copy this file when creating a new Codex skill. Replace the placeholders with instructions for one specific, repeatable workflow.
+
+A finished skill should tell Codex when to use it, what inputs matter, what steps to follow, how to validate the result, and what to report back. Keep the main `SKILL.md` concise; move long examples, schemas, policies, and edge cases into `references/`.
+
+## Use When
+
+- The task matches the frontmatter `description`.
+- The workflow is specific enough to execute with the available repo context.
+- This skill is the smallest useful tool for the job.
+
+## Contract
+
+- Stay focused on the skill's single job.
+- Preserve existing project conventions unless this skill explicitly overrides them.
+- Prefer direct instructions over scripts unless the logic is deterministic or repetitive.
+- Read only the files needed for the current task.
+- Make the smallest correct change; avoid broad rewrites unless requested.
+- Validate the result before responding, or state why validation was skipped.
 
 ## Workflow
 
-1. Identify the user's concrete goal and relevant inputs.
-2. Select the smallest useful path through this skill.
-3. Read referenced files only when their conditions apply.
-4. Use scripts for deterministic or repetitive work.
-5. Validate the result before responding.
+1. Identify the user's goal, inputs, constraints, and done condition.
+2. Inspect the minimum relevant files before editing or running commands.
+3. Choose the smallest path through the skill; skip sections that do not apply.
+4. Read bundled references only when their conditions apply.
+5. Use bundled scripts only when they provide deterministic value.
+6. Make the change or produce the requested output.
+7. Run the most focused validation available.
+8. Summarize the result, changed files, and validation.
 
 ## References
 
-- Read `references/example.md` only when the task needs detailed background, schemas, policies, or examples.
+- Use `references/` for detailed background, schemas, policies, examples, and edge cases that would bloat this file.
+- Read reference files only when needed for the current task.
 
 ## Scripts
 
-- Use `scripts/example.py` only after replacing it with real deterministic logic for this skill.
+- Use `scripts/` for repetitive parsing, formatting, generation, validation, or external-tool orchestration.
+- Do not add scripts for one-off logic that is clearer as direct instructions.
 
 ## Output
 
-Summarize the result briefly, name any changed files, and call out validation that was run or skipped.
+Final response should include:
+
+- What was done.
+- Files changed, if any.
+- Validation run, or why it was skipped.
+- Any remaining risks or assumptions.
