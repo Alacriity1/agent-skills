@@ -49,7 +49,7 @@ Required:
 
 ## Git
 
-- Use Conventional Commits: (`feat|fix|refactor|build|ci|chore|docs|style|perf|test`),
+- Use Conventional Commits; use the `git-commits` skill for commit creation, review, and message selection.
 - Prefer small, reviewable commits that add or revise one concept at a time.
 - Prefer one skill addition or one skill revision per commit.
 - Check `git status` and review relevant diffs before committing.
