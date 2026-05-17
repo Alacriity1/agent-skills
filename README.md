@@ -78,7 +78,7 @@ mkdir -p "$HOME/.codex"
 cp "<path-to-this-repo>/global/AGENTS.md" "$HOME/.codex/AGENTS.md"
 ```
 
-These commands work in macOS, Linux, Git Bash, and WSL. In PowerShell, use `New-Item -ItemType SymbolicLink` instead of `ln -s`, or copy files with `Copy-Item`.
+These commands work in macOS, Linux, Git Bash, and WSL. In PowerShell, use `New-Item -ItemType SymbolicLink` instead of `ln -s`, or copy files with `Copy-Item`. On Windows Git Bash can be a bit funky, so it's probably best to just use PowerShell.
 
 Instruction hierarchy:
 
