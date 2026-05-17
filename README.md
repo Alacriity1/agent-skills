@@ -29,9 +29,74 @@ Mostly focused for Codex. If/when I switch back over to claude I may have to tak
 │   └── skill-authoring.md
 ├── tools/ //to maintain the agent-skills repo itself
 │   └── validate_skills.py
+├── global/
+│   └── AGENTS.md // global Codex defaults
 ├── AGENTS.md
 └── README.md
 ```
+
+## Quick Setup
+
+Codex uses two separate global locations:
+
+1. Skills go in `$HOME/.agents/skills`.
+2. Global instructions go in `$HOME/.codex/AGENTS.md`.
+
+`AGENTS.md` does not load skills. Skills must be installed into the skills folder.
+
+### 1. Set Up Global Skills
+
+Recommended: point Codex's global skills folder at this repo's skills folder.
+
+```bash
+mkdir -p "$HOME/.agents"
+ln -s "<path-to-this-repo>/.agents/skills" "$HOME/.agents/skills"
+```
+
+Alternative: copy this repo's skills into Codex's global skills folder.
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+cp -R "<path-to-this-repo>/.agents/skills/"* "$HOME/.agents/skills/"
+```
+
+Use one approach, not both. If `$HOME/.agents/skills` already exists and has skills you want to keep, copy selected skills instead of replacing the folder.
+
+### 2. Set Up Global Instructions
+
+Recommended: point Codex's global instructions file at this repo's `global/AGENTS.md`.
+
+```bash
+mkdir -p "$HOME/.codex"
+ln -s "<path-to-this-repo>/global/AGENTS.md" "$HOME/.codex/AGENTS.md"
+```
+
+Alternative: copy this repo's instructions file into Codex's global instructions file.
+
+```bash
+mkdir -p "$HOME/.codex"
+cp "<path-to-this-repo>/global/AGENTS.md" "$HOME/.codex/AGENTS.md"
+```
+
+These commands work in macOS, Linux, Git Bash, and WSL. In PowerShell, use `New-Item -ItemType SymbolicLink` instead of `ln -s`, or copy files with `Copy-Item`.
+
+Instruction hierarchy:
+
+1. Global: `$HOME/.codex/AGENTS.md`.
+2. Repo root: `AGENTS.md`.
+3. Nested directories from repo root to the current working directory.
+
+More specific files override earlier guidance. Use this repo's root `AGENTS.md` for maintaining this repo; use `global/AGENTS.md` for portable defaults across all repos.
+
+### 3. Set Up Downstream Repo Instructions
+
+Downstream repos can use a pointer-style `AGENTS.md` so shared rules stay canonical here:
+
+```text
+READ <path-to-this-repo>/global/AGENTS.md BEFORE ANYTHING (skip if missing).
+```
+
+Put repo-specific rules below that pointer. Do not copy shared blocks into downstream repos.
 
 ## Create a Skill
 
@@ -45,9 +110,7 @@ Mostly focused for Codex. If/when I switch back over to claude I may have to tak
 8. Update `agents/openai.yaml` for UI metadata and invocation policy.
 9. Run `python3 tools/validate_skills.py`.
 
-For local experimentation outside this repo, Codex can also read user skills
-from `$HOME/.agents/skills`; this repo keeps the canonical source in version
-control.
+For local experimentation outside this repo, copy selected skills into a target project's `.agents/skills/` folder.
 
 ## References
 
